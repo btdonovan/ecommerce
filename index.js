@@ -121,6 +121,16 @@ app.delete('/purchase_order/:id', (request, response) => {
   db.deleteRow(request, response, 'purchase_orders')
 })
 
+app.post('/purchase_order', (request, response) => {
+  let sales_order = request.body.sales_order
+  let manufacturer_id = request.body.manufacturer_id
+  if (sales_order && manufacturer_id) {
+    db.createPurchaseOrder(request, response)
+  } else {
+    response.send('Purchase Order data was incomplete.')
+  }
+})
+
 app.get('/sales_orders', (request, response) => {
   db.listRows(request, response, 'sales_orders')
 })
@@ -131,4 +141,17 @@ app.get('/sales_order/:id', (request, response) => {
 
 app.delete('/sales_order/:id', (request, response) => {
   db.deleteRow(request, response, 'sales_orders')
+})
+
+app.post('/sales_order', (request, response) => {
+  let user_id = request.body.user_id
+  let customer_id = request.body.customer_id
+  let item_id = request.body.item_id
+  let qty = request.body.qty
+  let date_ordered = request.body.date_ordered
+  if (user_id && customer_id && item_id && qty && date_ordered) {
+    db.createSalesOrder(request, response)
+  } else {
+    response.send('Sales Order data was incomplete.')
+  }
 })

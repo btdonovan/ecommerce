@@ -142,6 +142,45 @@ const updateCompany = (request, response, tableName) => {
   )
 }
 
+const createPurchaseOrder = (request, response) => {
+  let sales_order = request.body.sales_order
+  let manufacturer_id = request.body.manufacturer_id
+  let date_ordered = request.body.date_ordered
+  let date_received = request.body.date_received
+  pool.query(
+    `INSERT INTO purchase_orders (sales_order, manufacturer_id, date_ordered, date_received) VALUES ($1, $2, $3, $4)`, 
+    [sales_order, manufacturer_id, date_ordered, date_received],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(201).send(`Purchase Order added for manufacturer id ${manufacturer_id}.`)
+    }
+  )
+}
+
+const createSalesOrder = (request, response) => {
+  let user_id = request.body.user_id
+  let customer_id = request.body.customer_id
+  let item_id = request.body.item_id
+  let qty = request.body.qty
+  let date_ordered = request.body.date_ordered
+  let date_received = request.body.date_received
+  if (!date_received) {
+    date_received = null
+  }
+  pool.query(
+    `INSERT INTO sales_orders (user_id, customer_id, item_id, qty, date_ordered, date_received) VALUES ($1, $2, $3, $4, $5, $6)`, 
+    [user_id, customer_id, item_id, qty, date_ordered, date_received],
+    (error, results) => {
+      if (error) {
+        throw error
+      }
+      response.status(201).send(`Sales Order added for customer id ${customer_id}.`)
+    }
+  )
+}
+
 module.exports = {
   listRows,
   createUser,
@@ -150,4 +189,6 @@ module.exports = {
   deleteRow,
   createCompany,
   updateCompany,
+  createPurchaseOrder,
+  createSalesOrder,
 }
