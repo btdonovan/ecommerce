@@ -1,4 +1,4 @@
-DROP TABLES IF EXISTS 
+DROP TABLE IF EXISTS 
   users, 
   manufacturers, 
   customers, 
@@ -35,19 +35,6 @@ CREATE TABLE items (
   description text NOT NULL
 );
 
-CREATE TABLE purchase_orders (
-  id serial PRIMARY KEY,
-  user_id integer NOT NULL,
-  manufacturer_id integer NOT NULL,
-  item_id integer NOT NULL,
-  qty integer NOT NULL,
-  date_ordered date,
-  date_received date,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
-);
-
 CREATE TABLE sales_orders (
   id serial PRIMARY KEY,
   user_id integer NOT NULL,
@@ -59,4 +46,14 @@ CREATE TABLE sales_orders (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (customer_id) REFERENCES customers(id),
   FOREIGN KEY (item_id) REFERENCES items(id)
-)
+);
+
+CREATE TABLE purchase_orders (
+  id serial PRIMARY KEY,
+  sales_order integer NOT NULL,
+  manufacturer_id integer NOT NULL,
+  date_ordered date,
+  date_received date,
+  FOREIGN KEY (manufacturer_id) REFERENCES manufacturers(id),
+  FOREIGN KEY (sales_order) REFERENCES sales_orders(id)
+);
