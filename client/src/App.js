@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import UserList from './listUsers'
 import CompanyList from './listCompanies'
+import ItemList from './listItems'
 
 class App extends React.Component {
   constructor(props) {
@@ -67,6 +68,9 @@ class App extends React.Component {
     if (this.state.customers.length === 0) {
       this.fetchCustomers()
     }
+    if (this.state.items.length === 0) {
+      this.fetchItems()
+    }
     
     return (
       <div>
@@ -75,6 +79,8 @@ class App extends React.Component {
         <CompanyList companies={this.state.manufacturers} type="Manufacturers"/>
         <br />
         <CompanyList companies={this.state.customers} type="Customers"/>
+        <br />
+        <ItemList items={this.state.items} />
       </div>
     )
   }
