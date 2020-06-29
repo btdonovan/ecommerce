@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import UserList from './listUsers'
+import CompanyList from './listCompanies'
 
 class App extends React.Component {
   constructor(props) {
@@ -55,37 +57,26 @@ class App extends React.Component {
       .then((json) => {this.setState({sales_orders: json})})
   }
 
-
   render() {
     if (this.state.users.length === 0) {
       this.fetchUsers()
     }
-    // if (this.state.manufacturers.length === 0) {
-    //   this.fetchRows('manufacturers')
-    // }
-    // if (this.state.customers.length === 0) {
-    //   this.fetchRows('customers')
-    // }
-    // if (this.state.items.length === 0) {
-    //   this.fetchRows('items')
-    // }
-    // if (this.state.purchase_orders === 0) {
-    //   this.fetchRows('purchase_orders')
-    // }
-    // if (this.state.sales_orders === 0) {
-    //   this.fetchRows('sales_orders')
-    // }
-    let users = this.state.users.map(user => {
-      console.log(user.address)
-      return user
-    })
+    if (this.state.manufacturers.length === 0) {
+      this.fetchManufacturers()
+    }
+    if (this.state.customers.length === 0) {
+      this.fetchCustomers()
+    }
     
-    let userInfo = users.map(user => <React.Fragment><div>{user.first_name} {user.last_name}</div><div>{user.email}</div><div>{user.address}</div></React.Fragment>)
     return (
-      <div className="App">
-        {userInfo}
+      <div>
+        <UserList users={this.state.users} />
+        <br />
+        <CompanyList companies={this.state.manufacturers} type="Manufacturers"/>
+        <br />
+        <CompanyList companies={this.state.customers} type="Customers"/>
       </div>
-    );
+    )
   }
 }
 
