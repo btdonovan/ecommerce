@@ -10,18 +10,14 @@ app.listen(port, () => {
   console.log(`app running on port ${port}.`)
 })
 
+// Root
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.get('/users', (request, response) => {
-  db.listRows(request, response, 'users')
-})
+// Users
 
-app.get('/user/:id', (request, response) => {
-  db.readRow(request, response, 'users')
-})
-
+  // Create User
 app.post('/user', (request, response) => {
   let first_name = request.body.first_name
   let last_name = request.body.last_name
@@ -33,26 +29,29 @@ app.post('/user', (request, response) => {
   }
 })
 
+  // Read User
+app.get('/user/:id', (request, response) => {
+  db.readRow(request, response, 'users')
+})
+
+  // Update User
 app.patch('/user/:id', (request, response) => {
   db.updateUser(request, response)
 })
 
+  // Delete User
 app.delete('/user/:id', (request, response) => {
   db.deleteRow(request, response, 'users')
 })
 
-app.get('/manufacturers', (request, response) => {
-  db.listRows(request, response, 'manufacturers')
+  // List Users
+app.get('/users', (request, response) => {
+  db.listRows(request, response, 'users')
 })
 
-app.get('/manufacturer/:id', (request, response) => {
-  db.readRow(request, response, 'manufacturers')
-})
+// Manufacturers
 
-app.delete('/manufacturer/:id', (request, response) => {
-  db.deleteRow(request, response, 'manufacturers')
-})
-
+  // Create Manufacturer
 app.post('/manufacturer', (request, response) => {
   let company_name = request.body.company_name
   let contact_name = request.body.contact_name
@@ -65,22 +64,30 @@ app.post('/manufacturer', (request, response) => {
   }
 })
 
+  // Read Manufacturer
+
+app.get('/manufacturer/:id', (request, response) => {
+  db.readRow(request, response, 'manufacturers')
+})
+
+  // Update Manufacturer
 app.patch('/manufacturer/:id', (request, response) => {
   db.updateCompany(request, response, 'manufacturers')
 })
 
-app.get('/customers', (request, response) => {
-  db.listRows(request, response, 'customers')
+  // Delete Manufacturer
+app.delete('/manufacturer/:id', (request, response) => {
+  db.deleteRow(request, response, 'manufacturers')
 })
 
-app.get('/customer/:id', (request, response) => {
-  db.readRow(request, response, 'customers')
+  // List Manufacturers
+app.get('/manufacturers', (request, response) => {
+  db.listRows(request, response, 'manufacturers')
 })
 
-app.delete('/customer/:id', (request, response) => {
-  db.deleteRow(request, response, 'customers')
-})
+// Customers
 
+  // Create Customer
 app.post('/customer', (request, response) => {
   let company_name = request.body.company_name
   let contact_name = request.body.contact_name
@@ -93,34 +100,48 @@ app.post('/customer', (request, response) => {
   }
 })
 
+  // Read Customer
+app.get('/customer/:id', (request, response) => {
+  db.readRow(request, response, 'customers')
+})
+
+  // Update Customer
 app.patch('/customer/:id', (request, response) => {
   db.updateCompany(request, response, 'customers')
 })
 
+  // Delete Customer
+app.delete('/customer/:id', (request, response) => {
+  db.deleteRow(request, response, 'customers')
+})
+
+  // List Customers
+app.get('/customers', (request, response) => {
+  db.listRows(request, response, 'customers')
+})
+
+// Items
+
+  // Create Item
+
+  // Read Item
+app.get('/item/:id', (request, response) => {
+  db.readRow(request, response, 'items')
+})
+  // Update Item
+
+  // Delete Item
+app.delete('/item/:id', (request, response) => {
+  db.deleteRow(request, response, 'items')
+})
+  // List Items
 app.get('/items', (request, response) => {
   db.listRows(request, response, 'items')
 })
 
-app.get('/item/:id', (request, response) => {
-  db.readRow(request, response, 'items')
-})
+// Purchase Orders
 
-app.delete('/item/:id', (request, response) => {
-  db.deleteRow(request, response, 'items')
-})
-
-app.get('/purchase_orders', (request, response) => {
-  db.listRows(request, response, 'purchase_orders')
-})
-
-app.get('/purchase_order/:id', (request, response) => {
-  db.readRow(request, response, 'purchase_orders')
-})
-
-app.delete('/purchase_order/:id', (request, response) => {
-  db.deleteRow(request, response, 'purchase_orders')
-})
-
+  // Create Purchase Order
 app.post('/purchase_order', (request, response) => {
   let sales_order = request.body.sales_order
   let manufacturer_id = request.body.manufacturer_id
@@ -130,19 +151,24 @@ app.post('/purchase_order', (request, response) => {
     response.send('Purchase Order data was incomplete.')
   }
 })
+  // Read Purchase Order
+app.get('/purchase_order/:id', (request, response) => {
+  db.readRow(request, response, 'purchase_orders')
+})
+  // Update Purchase Order
 
-app.get('/sales_orders', (request, response) => {
-  db.listRows(request, response, 'sales_orders')
+  // Delete Purchase Order
+app.delete('/purchase_order/:id', (request, response) => {
+  db.deleteRow(request, response, 'purchase_orders')
+})
+  // List Purchase Orders
+app.get('/purchase_orders', (request, response) => {
+  db.listRows(request, response, 'purchase_orders')
 })
 
-app.get('/sales_order/:id', (request, response) => {
-  db.readRow(request, response, 'sales_orders')
-})
+// Sales Orders
 
-app.delete('/sales_order/:id', (request, response) => {
-  db.deleteRow(request, response, 'sales_orders')
-})
-
+  // Create Sales Order
 app.post('/sales_order', (request, response) => {
   let user_id = request.body.user_id
   let customer_id = request.body.customer_id
@@ -154,4 +180,18 @@ app.post('/sales_order', (request, response) => {
   } else {
     response.send('Sales Order data was incomplete.')
   }
+})
+  // Read Sales Order
+app.get('/sales_order/:id', (request, response) => {
+  db.readRow(request, response, 'sales_orders')
+})
+  // Update Sales Order
+
+  // Delete Sales Order
+app.delete('/sales_order/:id', (request, response) => {
+  db.deleteRow(request, response, 'sales_orders')
+})
+  // List Sales Orders
+app.get('/sales_orders', (request, response) => {
+  db.listRows(request, response, 'sales_orders')
 })
