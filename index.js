@@ -15,7 +15,7 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-// Users
+//// Users
 
   // Create User
 app.post('/user', (request, response) => {
@@ -49,7 +49,7 @@ app.get('/users', (request, response) => {
   db.listRows(request, response, 'users')
 })
 
-// Manufacturers
+//// Manufacturers
 
   // Create Manufacturer
 app.post('/manufacturer', (request, response) => {
@@ -65,7 +65,6 @@ app.post('/manufacturer', (request, response) => {
 })
 
   // Read Manufacturer
-
 app.get('/manufacturer/:id', (request, response) => {
   db.readRow(request, response, 'manufacturers')
 })
@@ -85,7 +84,7 @@ app.get('/manufacturers', (request, response) => {
   db.listRows(request, response, 'manufacturers')
 })
 
-// Customers
+//// Customers
 
   // Create Customer
 app.post('/customer', (request, response) => {
@@ -120,26 +119,40 @@ app.get('/customers', (request, response) => {
   db.listRows(request, response, 'customers')
 })
 
-// Items
+//// Items
 
   // Create Item
+  app.post('/item', (request, response) => {
+    let name = request.body.name
+    let description = request.body.description
+    if (name && description) {
+      db.createItem(request, response)
+    } else {
+      response.send('Item data was incomplete.')
+    }
+  })
 
   // Read Item
 app.get('/item/:id', (request, response) => {
   db.readRow(request, response, 'items')
 })
+
   // Update Item
+app.patch('/item/:id', (request, response) => {
+  db.updateItem(request, response)
+})
 
   // Delete Item
 app.delete('/item/:id', (request, response) => {
   db.deleteRow(request, response, 'items')
 })
+
   // List Items
 app.get('/items', (request, response) => {
   db.listRows(request, response, 'items')
 })
 
-// Purchase Orders
+//// Purchase Orders
 
   // Create Purchase Order
 app.post('/purchase_order', (request, response) => {
@@ -151,22 +164,28 @@ app.post('/purchase_order', (request, response) => {
     response.send('Purchase Order data was incomplete.')
   }
 })
+
   // Read Purchase Order
 app.get('/purchase_order/:id', (request, response) => {
   db.readRow(request, response, 'purchase_orders')
 })
+
   // Update Purchase Order
+app.patch('/purchase_order/:id', (request, response) => {
+  db.updatePurchaseOrder(request, response)
+})
 
   // Delete Purchase Order
 app.delete('/purchase_order/:id', (request, response) => {
   db.deleteRow(request, response, 'purchase_orders')
 })
+
   // List Purchase Orders
 app.get('/purchase_orders', (request, response) => {
   db.listRows(request, response, 'purchase_orders')
 })
 
-// Sales Orders
+//// Sales Orders
 
   // Create Sales Order
 app.post('/sales_order', (request, response) => {
@@ -181,16 +200,22 @@ app.post('/sales_order', (request, response) => {
     response.send('Sales Order data was incomplete.')
   }
 })
+
   // Read Sales Order
 app.get('/sales_order/:id', (request, response) => {
   db.readRow(request, response, 'sales_orders')
 })
+
   // Update Sales Order
+app.patch('/sales_order/:id', (request, response) => {
+  db.updateSalesOrder(request, response)
+})
 
   // Delete Sales Order
 app.delete('/sales_order/:id', (request, response) => {
   db.deleteRow(request, response, 'sales_orders')
 })
+
   // List Sales Orders
 app.get('/sales_orders', (request, response) => {
   db.listRows(request, response, 'sales_orders')
