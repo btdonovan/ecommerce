@@ -8,17 +8,17 @@ DELETE FROM items WHERE id >= 0;
 
 
 INSERT INTO users 
-  (first_name, last_name, email) 
+  (first_name, last_name, email, address) 
   VALUES 
-  ('Bob', 'Smith', 'bob.smith@ourcompany.com');
+  ('Bob', 'Smith', 'bob.smith@ourcompany.com', '123 Corporate Drive\nSuite 300\nCity of Industry, CA 90601');
 INSERT INTO manufacturers 
-  (company_name, contact_name, contact_email, contact_phone) 
+  (company_name, contact_name, contact_email, contact_phone, address) 
   VALUES 
-  ('Acme Inc.', 'Road Runner', 'rr@acme.com', '555-1212');
+  ('Acme Inc.', 'Road Runner', 'rr@acme.com', '555-1212', '321 Acme Lane\nTucson, AZ 85701');
 INSERT INTO customers 
-  (company_name, contact_name, contact_email, contact_phone) 
+  (company_name, contact_name, contact_email, contact_phone, address) 
   VALUES 
-  ('Nuisance Bird Exterminators', 'Wile E. Coyote', 'i_hate_road_runners@nbe.com', '555-9876');
+  ('Nuisance Bird Exterminators', 'Wile E. Coyote', 'i_hate_road_runners@nbe.com', '555-9876', '567 Predator Lane\nPhoenix, AZ 85001');
 INSERT INTO items (name, description) VALUES ('rocket', 'Guranteed not to launch you into a cliff.');
 INSERT INTO sales_orders
   (user_id, customer_id, item_id, qty, date_ordered, date_received)

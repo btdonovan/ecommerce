@@ -10,7 +10,8 @@ CREATE TABLE users (
   id serial PRIMARY KEY,
   first_name varchar(100) NOT NULL,
   last_name varchar(100) NOT NULL,
-  email varchar(100) NOT NULL
+  email varchar(100) NOT NULL,
+  address text NOT NULL
 );
 
 CREATE TABLE manufacturers (
@@ -18,7 +19,8 @@ CREATE TABLE manufacturers (
   company_name varchar(100) NOT NULL,
   contact_name varchar(100) NOT NULL,
   contact_email varchar(100) NOT NULL,
-  contact_phone varchar(100) NOT NULL
+  contact_phone varchar(100) NOT NULL,
+  address text NOT NULL
 );
 
 CREATE TABLE customers (
@@ -26,7 +28,8 @@ CREATE TABLE customers (
   company_name varchar(100) NOT NULL,
   contact_name varchar(100) NOT NULL,
   contact_email varchar(100) NOT NULL,
-  contact_phone varchar(100) NOT NULL
+  contact_phone varchar(100) NOT NULL,
+  address text NOT NULL
 );
 
 CREATE TABLE items (

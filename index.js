@@ -22,7 +22,8 @@ app.post('/user', (request, response) => {
   let first_name = request.body.first_name
   let last_name = request.body.last_name
   let email = request.body.email
-  if (first_name && last_name && email) {
+  let address = request.body.address
+  if (first_name && last_name && email && address) {
     db.createUser(request, response)
   } else {
     response.send('User data was incomplete.')

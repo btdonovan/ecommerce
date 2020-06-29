@@ -52,9 +52,10 @@ const createUser = (request, response) => {
   let first_name = request.body.first_name
   let last_name = request.body.last_name
   let email = request.body.email
+  let address = request.body.address
   pool.query(
-    'INSERT INTO users (first_name, last_name, email) VALUES ($1, $2, $3)', 
-    [first_name, last_name, email],
+    'INSERT INTO users (first_name, last_name, email, address) VALUES ($1, $2, $3, $4)', 
+    [first_name, last_name, email, address],
     (error, results) => {
       if (error) {
         throw error
@@ -81,10 +82,11 @@ const updateUser = (request, response) => {
         let firstName = newUser.first_name
         let lastName = newUser.last_name
         let email = newUser.email
+        let address = newUser.address
         let id = newUser.id
         pool.query(
-          'UPDATE users SET first_name = $1, last_name = $2, email = $3 WHERE id = $4',
-          [firstName, lastName, email, id],
+          'UPDATE users SET first_name = $1, last_name = $2, email = $3, address = $4 WHERE id = $5',
+          [firstName, lastName, email, address, id],
           (error, results) => {
             if (error) {
               throw error
@@ -219,9 +221,10 @@ const createPurchaseOrder = (request, response) => {
     [sales_order, manufacturer_id, date_ordered, date_received],
     (error, results) => {
       if (error) {
-        throw error
+        response.status(500).send("Unable to create purchase order: \n  " + error.detail)
+      } else {
+        response.status(201).send(`Purchase Order added for manufacturer id ${manufacturer_id}.`)
       }
-      response.status(201).send(`Purchase Order added for manufacturer id ${manufacturer_id}.`)
     }
   )
 }
@@ -275,9 +278,10 @@ const createSalesOrder = (request, response) => {
     [user_id, customer_id, item_id, qty, date_ordered, date_received],
     (error, results) => {
       if (error) {
-        throw error
+        response.status(500).send("Unable to create sales order: \n  " + error.detail)
+      } else {
+        response.status(201).send(`Sales Order added for customer id ${customer_id}.`)
       }
-      response.status(201).send(`Sales Order added for customer id ${customer_id}.`)
     }
   )
 }
