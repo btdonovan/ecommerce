@@ -1,9 +1,11 @@
+DELETE FROM purchase_orders WHERE id >= 0;
+DELETE FROM sales_orders WHERE id >= 0;
 DELETE FROM users WHERE id >= 0;
 DELETE FROM manufacturers WHERE id >= 0;
 DELETE FROM customers WHERE id >= 0;
 DELETE FROM items WHERE id >= 0;
-DELETE FROM purchase_orders WHERE id >= 0;
-DELETE FROM sales_orders WHERE id >= 0;
+
+
 
 INSERT INTO users 
   (first_name, last_name, email) 
@@ -12,19 +14,19 @@ INSERT INTO users
 INSERT INTO manufacturers 
   (company_name, contact_name, contact_email, contact_phone) 
   VALUES 
-  ('Cheech & Chong Glass', 'Tommy Chong', 'tc@ccg.com', '555-1212');
+  ('Acme Inc.', 'Road Runner', 'rr@acme.com', '555-1212');
 INSERT INTO customers 
   (company_name, contact_name, contact_email, contact_phone) 
   VALUES 
-  ('Stoners Inc.', 'Dave Stoner', 'ds@stoners.com', '420-9876');
-INSERT INTO items (name, description) VALUES ('bong', 'A simple glass bong');
+  ('Nuisance Bird Exterminators', 'Wile E. Coyote', 'i_hate_road_runners@nbe.com', '555-9876');
+INSERT INTO items (name, description) VALUES ('rocket', 'Guranteed not to launch you into a cliff.');
 INSERT INTO sales_orders
   (user_id, customer_id, item_id, qty, date_ordered, date_received)
   VALUES
   ((SELECT id FROM users WHERE last_name = 'Smith'),
-   (SELECT id FROM customers WHERE contact_name = 'Dave Stoner'),
-   (SELECT id FROM items WHERE name = 'bong'),
-   200,
+   (SELECT id FROM customers WHERE contact_name = 'Wile E. Coyote'),
+   (SELECT id FROM items WHERE name = 'rocket'),
+   2,
    '2020-06-26',
    null
   );
@@ -32,8 +34,8 @@ INSERT INTO purchase_orders
   (sales_order, manufacturer_id, date_ordered, date_received)
   VALUES
   (
-    (SELECT id FROM sales_orders WHERE qty = 200),
-    (SELECT id FROM manufacturers WHERE company_name = 'Cheech & Chong Glass'),
+    (SELECT id FROM sales_orders WHERE qty = 2),
+    (SELECT id FROM manufacturers WHERE company_name = 'Acme Inc.'),
     null,
     null
   )
